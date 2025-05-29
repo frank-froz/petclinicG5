@@ -12,17 +12,23 @@ public class Vet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;
-    private String lastName;
+    private String first_name;
+    private String last_name;
 
     public Vet() {
-
     }
 
-    public Vet(String name, String lastName) {
+    public Vet(Integer id, String name, String lastName) {
         super();
-        this.name = name;
-        this.lastName = lastName;
+        this.id = id;
+        this.first_name = name;
+        this.last_name = lastName;
+    }
+
+    public Vet( String name, String lastName) {
+        super();
+        this.first_name = name;
+        this.last_name = lastName;
     }
 
 
