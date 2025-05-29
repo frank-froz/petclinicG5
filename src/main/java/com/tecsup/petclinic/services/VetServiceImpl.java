@@ -17,4 +17,10 @@ public class VetServiceImpl implements VetService {
     public Vet create(Vet vet){
         return vetRepository.save(vet);
     }
+
+    @Override
+    public Vet update (Vet vet) {return vetRepository.save (vet);
+    }
+
+
 }
