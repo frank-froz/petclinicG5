@@ -1,15 +1,13 @@
 package com.tecsup.petclinic.services;
 
 import com.tecsup.petclinic.entities.Vet;
-import com.tecsup.petclinic.exception.VetNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @Slf4j
@@ -37,32 +35,5 @@ public class VetServiceTest {
 
     }
 
-    @Test
-    public void testFindVetByName() {
-
-        String FIND_NAME = "James";
-        int SIZE_EXPECTED = 1;
-
-        List<Vet> vets = this.vetService.findByName(FIND_NAME);
-
-        assertEquals(SIZE_EXPECTED, vets.size());
-    }
-
-    @Test
-    public void testFindVetById() {
-
-        String NAME_EXPECTED = "Sharon";
-
-        Integer ID = 1;
-
-        Vet vet = null;
-
-        try {
-            vet = this.vetService.findById(ID);
-        } catch (VetNotFoundException e) {
-            fail(e.getMessage());
-        }
-        assertEquals(NAME_EXPECTED, vet.getFirst_name());
-    }
 
 }

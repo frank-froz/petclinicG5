@@ -24,6 +24,12 @@ public class VetServiceImpl implements VetService {
     }
 
     @Override
+    public Vet update (Vet vet) {return vetRepository.save (vet);
+    }
+
+
+
+    @Override
     public Vet findById(Integer id) throws VetNotFoundException {
 
         Optional<Vet> vet = vetRepository.findById(id);
