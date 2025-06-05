@@ -52,4 +52,53 @@ public class VetControllerTest {
                 .andExpect(jsonPath("$.lastName", is(VET_LAST_NAME)));
 
     }
+
+    @Test
+    public void testUpdateVet() throws Exception {
+
+        String FIRST_NAME = "Hanmer";
+        String LAST_NAME = "Castro";
+
+        String UP_FIRST_NAME = "Hector";
+        String UP_LAST_NAME = "Castro";
+
+        VetDTO newVetTO = new VetDTO();
+        newVetTO.setFirstName(FIRST_NAME);
+        newVetTO.setLastName(LAST_NAME);
+
+        // CREATE
+        ResultActions mvcActions = mockMvc.perform(post("/vets")
+                        .content(om.writeValueAsString(newVetTO))
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isCreated());
+
+        String response = mvcActions.andReturn().getResponse().getContentAsString();
+        Integer id = JsonPath.parse(response).read("$.id");
+
+        // UPDATE
+        VetDTO upVetTO = new VetDTO();
+        upVetTO.setId(id);
+        upVetTO.setFirstName(UP_FIRST_NAME);
+        upVetTO.setLastName(UP_LAST_NAME);
+
+        mockMvc.perform(put("/vets/" + id)
+                        .content(om.writeValueAsString(upVetTO))
+                        .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk());
+
+        // FIND
+        mockMvc.perform(get("/vets/" + id))
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(id)))
+                .andExpect(jsonPath("$.firstName", is(UP_FIRST_NAME)))
+                .andExpect(jsonPath("$.lastName", is(UP_LAST_NAME)));
+
+        // DELETE
+        mockMvc.perform(delete("/vets/" + id))
+                .andExpect(status().isOk());
+    }
 }
