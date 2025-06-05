@@ -50,5 +50,28 @@ public class VetController {
         return  ResponseEntity.status(HttpStatus.CREATED).body(newVetTO);
     }
 
+    @PutMapping(value = "/vets/{id}")
+    ResponseEntity<VetDTO> update(@RequestBody VetDTO vetTO, @PathVariable Integer id) {
+
+        VetDTO updateVetTO = null;
+
+        try {
+
+            Vet updateVet = vetService.findById(id);
+
+            updateVet.setFirstName(vetTO.getFirstName());
+            updateVet.setLastName(vetTO.getLastName());
+
+            vetService.update(updateVet);
+
+            updateVetTO = this.vetMapper.toVetTO(updateVet);
+
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.ok(updateVetTO);
+    }
+
 
 }
