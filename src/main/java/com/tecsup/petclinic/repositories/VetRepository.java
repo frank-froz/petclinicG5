@@ -11,8 +11,7 @@ import java.util.List;
 public interface VetRepository
         extends JpaRepository<Vet, Integer> {
 
-        List<Vet> findByName(String name);
-
+        List<Vet> findByFirstName(String firstName);
         @Override
         List<Vet> findAll();
 

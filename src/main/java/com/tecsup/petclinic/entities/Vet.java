@@ -1,9 +1,6 @@
 package com.tecsup.petclinic.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 
 @Entity(name = "vets")
@@ -12,8 +9,12 @@ public class Vet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String first_name;
-    private String last_name;
+    @Column(name = "first_name")
+    private String firstName;
+
+    @Column(name = "last_name")
+    private String lastName;
+
 
     public Vet() {
     }
@@ -21,14 +22,14 @@ public class Vet {
     public Vet(Integer id, String name, String lastName) {
         super();
         this.id = id;
-        this.first_name = name;
-        this.last_name = lastName;
+        this.firstName = name;
+        this.lastName = lastName;
     }
 
     public Vet( String name, String lastName) {
         super();
-        this.first_name = name;
-        this.last_name = lastName;
+        this.firstName = name;
+        this.lastName = lastName;
     }
 
 

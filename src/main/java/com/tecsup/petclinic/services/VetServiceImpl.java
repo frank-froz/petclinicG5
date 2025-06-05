@@ -11,8 +11,8 @@ import java.util.Optional;
 
 @Service
 @Slf4j
-public class VetServiceImpl implements VetService {
 
+public class VetServiceImpl implements VetService {
 
     VetRepository vetRepository;
 
@@ -21,6 +21,10 @@ public class VetServiceImpl implements VetService {
     @Override
     public Vet create(Vet vet){
         return vetRepository.save(vet);
+    }
+
+    @Override
+    public Vet update (Vet vet) {return vetRepository.save (vet);
     }
 
     @Override
@@ -34,9 +38,9 @@ public class VetServiceImpl implements VetService {
         return vet.get();
     }
     @Override
-    public List<Vet> findByName(String name) {
+    public List<Vet> findByFirstName(String firstName) {
 
-        List<Vet> vets = vetRepository.findByName(name);
+        List<Vet> vets = vetRepository.findByFirstName(firstName);
 
         vets.stream().forEach(vet -> log.info("" + vet));
 
