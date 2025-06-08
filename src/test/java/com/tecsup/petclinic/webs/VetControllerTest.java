@@ -17,6 +17,8 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
 @AutoConfigureMockMvc
 @SpringBootTest
@@ -29,7 +31,31 @@ public class VetControllerTest {
     private MockMvc mockMvc;
 
     @Test
-    void findAllVets() {
+    void findAllVets() throws Exception {
+        this.mockMvc.perform(get("/vets"))
+                .andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andExpect(jsonPath("$").isArray())
+                .andExpect(jsonPath("$[0].id").exists())
+                .andExpect(jsonPath("$[0].firstName").exists())
+                .andExpect(jsonPath("$[0].lastName").exists())
+                .andDo(print());
+    }
+
+
+    @Test
+    public void findVetById() throws Exception {
+
+        String FIRST_NAME = "James";
+        String LAST_NAME = "Carter";
+
+        this.mockMvc.perform(get("/vets/1"))  // Object must be BASIL
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", is(1)))
+                .andExpect(jsonPath("$.firstName", is(FIRST_NAME)))
+                .andExpect(jsonPath("$.lastName", is(LAST_NAME)));
     }
 
     @Test
