@@ -47,7 +47,6 @@ public class VetControllerTest {
                         .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isCreated())
-                //.andExpect(jsonPath("$.id", is(1)))
                 .andExpect(jsonPath("$.firstName", is(VET_NAME)))
                 .andExpect(jsonPath("$.lastName", is(VET_LAST_NAME)));
 

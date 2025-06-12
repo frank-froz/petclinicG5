@@ -47,7 +47,7 @@ public class VetController {
         Vet newVet = this.vetMapper.toVet(vetTO);
         VetDTO newVetTO = this.vetMapper.toVetTO(vetService.create(newVet));
 
-        return  ResponseEntity.status(HttpStatus.CREATED).body(newVetTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(newVetTO);
     }
 
 
